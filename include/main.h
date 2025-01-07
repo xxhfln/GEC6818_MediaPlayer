@@ -12,6 +12,8 @@
 #include <stdlib.h>
 
 #include "show_bmp.h"
+#include "touch.h"
+#include "slow_slide.h"
 
 // 全局变量
 #define PIXELS 800*480 // 屏幕像素点
@@ -25,6 +27,7 @@ int project_init(void); // 程序初始化
 int project_ui(void); // 程序主页面
 int project_destroy(void); // 程序销毁
 int project_touch(int *, int *);// 触摸屏操作函数
+
 
 struct input_event buf; // 触摸屏结构体
 // int open_serial(void);

@@ -1,9 +1,13 @@
 #include "main.h"
+#include "show_bmp.h"
+#include "touch.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int VideoPlay(char *video_path, int width, int height)
 {
+    show_bmp("./picture/zanting.bmp", p_lcd, 0, 400);
+
     // 打开视频文件
     system("killall -9 mplayer");
     char Video[255];
@@ -23,6 +27,10 @@ int VideoPlay(char *video_path, int width, int height)
         int nTouch = project_touch(&posx_, &posy_);
         if (nTouch == 0){
             choice = 1; // 暂停或继续视频
+            int video_touch = VideoTouch(posx_, posy_);
+            if (video_touch == 1){
+                
+            }
         }
         else if (nTouch == 4){
             choice = 2; // 退出视频
@@ -33,7 +41,7 @@ int VideoPlay(char *video_path, int width, int height)
                 system("killall -SIGKILL mplayer");
                 break;
             }
-            case 1:{
+            case 1:{ // 暂停/继续
                 if (video_mode == 1){
                     printf("暂停播放\n");
                     system("killall -SIGSTOP mplayer");

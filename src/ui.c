@@ -28,9 +28,6 @@ int project_ui(void){
     int Polling(int);
     int VideoPlay(char *, int, int);
 
-    // 开机界面
-    show_1152000bmp("./picture/qidong.bmp", p_lcd);
-    sleep(3);
     show_1152000bmp("./picture/Photo_tip.bmp", p_lcd);
 
     // Polling(3);
@@ -54,7 +51,7 @@ int project_ui(void){
                 //     count++;
                 //     sleep(1);
                 // }
-                VideoPlay("./video/yuanshen.avi", 800, 480);
+                VideoPlay("./video/yuanshen.avi", 800, 400);
                 break;
             }
             default:{
