@@ -55,4 +55,64 @@ int show_1152000bmp(char *pathname, int *show_1152000bmp_fd){
 
     return 0;
 }
+
+void draw_point(int x, int y, int color, int *addr){
+    if (x >= 0 && x < 800 && y >= 0 && y < 480) {
+        *(addr + 800 * y + x) = color;
+    }
+}
+
+int show_bmp(const char *path, int *addr, int x_w, int y_h){
+    int bmp_size, bmp_width, bmp_height;
+    
+    // 获取图片数据
+    int bmp_fd = open(path, O_RDONLY);
+    if (bmp_fd == -1){
+        perror("open failed");
+        return -1;
+    }
+
+    lseek(bmp_fd, 18, SEEK_SET);
+    read(bmp_fd, &bmp_width, 4);
+    read(bmp_fd, &bmp_height, 4);
+
+    printf("bmp_width = %d\n", bmp_width);
+    printf("bmp_height = %d\n", bmp_height);
+
+    // 获取图片颜色数据
+    char bmp_color[bmp_width * bmp_height * 3];
+    lseek(bmp_fd, 54, SEEK_SET);
+    int ret = read(bmp_fd, bmp_color, sizeof(bmp_color));
+    if (ret == -1){
+        perror("read err\n");
+        return -1;
+    }
+    close(bmp_fd);
+
+    //字节对齐处理
+    int row_size = bmp_width * 3;
+    int add = 0;
+    if (row_size % 4 != 0){
+        add = 4 - row_size % 4;
+    }
+
+    //颜色数据顺序处理
+    int lcd_color[bmp_width * bmp_height];
+    char *pos = bmp_color;
+    for (int y = 0; y < bmp_height;y++){
+        for (int x = 0; x < bmp_width;x++){
+            lcd_color[x + y * bmp_width] = pos[0] | pos[1] << 8 | pos[2] << 16 | 0x00 << 24;
+            pos += 3;
+        }
+        pos += add; // 无法整除4,下一排
+    }
+
+    // 将图片像素点颜色数据映射到lcd屏幕中
+    for (int y = 0; y < bmp_height;y++){
+        for (int x = 0; x < bmp_width;x++){
+            draw_point(x + x_w, y + y_h, lcd_color[x + (bmp_height - 1 - y) * bmp_width], addr);
+        }
+    }
+    return 0;
+}
  

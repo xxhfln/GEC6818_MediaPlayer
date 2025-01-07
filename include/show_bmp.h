@@ -20,4 +20,6 @@
 */
 int show_1152000bmp(char *pathname, int *show_1152000bmp_fd);
 
+int show_bmp(const char *path, int *addr, int x_w, int y_h);
+
 #endif
