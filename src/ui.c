@@ -54,7 +54,7 @@ int project_ui(void){
                 //     count++;
                 //     sleep(1);
                 // }
-                VideoPlay("./video/yuanshen.avi", 800, 480);
+                VideoPlay("./video/yuanshen.avi", 800, 400);
                 break;
             }
             default:{
