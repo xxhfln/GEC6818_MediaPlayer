@@ -1,4 +1,6 @@
+#include "file.h"
 #include "main.h"
+#include <stdio.h>
 
 int project_init(void){
     // 打开LCD文件
@@ -20,6 +22,13 @@ int project_init(void){
     fd_touch = open("/dev/input/event0", O_RDONLY);
     if (fd_touch == -1){
         perror("Open touch screen failed\n");
+        return -1;
+    }
+
+    // 获取video文件夹下的所有视频文件
+    int ret_ = getVideoFiles("./video");
+    if (ret_ == -1){
+        perror("getVideoFiles Error\n");
         return -1;
     }
 
