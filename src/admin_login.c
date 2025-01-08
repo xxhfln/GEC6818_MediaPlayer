@@ -14,7 +14,7 @@ int admin_login()
     printf("\n");
     // 检查用户名和密码
     for (int i = 0; i < user_count; i++) {
-        if (strcmp(users[i].username, "infodba") == 0 && strcmp(users[i].userpassword,"infodba")== 0)
+        if (strcmp(name, ADMIN_USERNAEM) == 0 && strcmp(password,ADMIN_PASSWORD) == 0)
             printf("登录成功!\n");
         // 这里可以实现查看用户图片视频的功能
         return 1;

@@ -14,8 +14,8 @@ int manage_login()
     int choice;
     while(1)
     {
+        system("clear");
         display_menu();
-        printf("输入数字选择：\n");
         scanf("%d",&choice);
         switch(choice)
         {

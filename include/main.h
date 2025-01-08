@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "file.h"
 #include "show_bmp.h"
 #include "touch.h"
 #include "slow_slide.h"
@@ -30,6 +31,8 @@
 #define ADMIN_USERNAEM "infodba"
 #define ADMIN_PASSWORD "infodba"
 #define MAX_USER 10
+#define ROOT_DIR "./"
+#define USER_ROOT_DIR "./User/"
 // 全局变量
 #define PIXELS 800*480 // 屏幕像素点
 int x, y; // 触摸屏坐标变量
@@ -37,6 +40,9 @@ int fd_lcd; // LCD的文件描述符
 int fd_touch; // touch文件
 int *p_lcd; // LCD映射内存
 int posx, posy; // 存放坐标
+char user_path[MAX_FILENAME_LENGTH]; // 登陆角色的文件路径
+char user_picture_path[MAX_FILENAME_LENGTH]; // 登陆角色的图片文件路径
+char user_video_path[MAX_FILENAME_LENGTH]; // 登陆角色的视频文件路径
 
 typedef struct 
 {

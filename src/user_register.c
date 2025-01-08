@@ -1,6 +1,10 @@
 // #include"user_register.h"
 // #include "save_load.h"
+#include "file.h"
 #include "main.h"
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 int user_register()
 {
@@ -21,5 +25,22 @@ int user_register()
     user_count++;
     printf("注册成功！！！");
     save_user_data();
+
+    char temp[MAX_FILENAME_LENGTH] = {'\0'};
+    strcpy(temp, USER_ROOT_DIR);
+    strcat(temp, name);
+    if (newFolder(temp) == -1){
+        printf("%s用户文件夹创建失败\n", name);
+        return -1;
+    }
+    char temp_2[MAX_FILENAME_LENGTH] = {'\0'};
+    strcpy(temp_2, temp);
+    strcat(temp, "/picture");
+    strcat(temp_2, "/video");
+    if (newFolder(temp) == -1 || newFolder(temp_2) == -1){
+        printf("%s用户picture文件夹或video文件夹创建失败\n", name);
+        return -1;
+    }
+    sleep(1);
     return 1;
 }

@@ -10,7 +10,11 @@
 
 char *video_files[MAX_FILES];
 int video_num;
+char *photo_files[MAX_FILES];
+int photo_num;
 
 int getVideoFiles(const char *path);
+int getPhotoFiles(const char *path);
+int newFolder(const char *dir_name);
 
 #endif

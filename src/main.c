@@ -3,6 +3,7 @@
 #include "manage_login.h"
 #include "show_bmp.h"
 #include "slow_slide.h"
+#include <unistd.h>
 
 int main(int argc,char* argv[])
 {
@@ -13,21 +14,27 @@ int main(int argc,char* argv[])
     show_1152000bmp("./picture/qidong.bmp", p_lcd);
     sleep(3);
     
-    // 滑动解锁界面
-    show_1152000bmp("./picture/jiesuo.bmp", p_lcd);
-    huadong_exec();
+    while(1){
+        // 滑动解锁界面
+        show_1152000bmp("./picture/jiesuo.bmp", p_lcd);
+        huadong_exec();
+        show_1152000bmp("./picture/wait.bmp", p_lcd);
 
+        // 登陆
+        memset(user_path, '\0', sizeof(user_path));
+        memset(user_picture_path, '\0', sizeof(user_path));
+        memset(user_video_path, '\0', sizeof(user_path));
+        int ret = manage_login();
+        if (ret == -1){
+            project_destroy();
+            return 0;
+        }
+        show_1152000bmp("./picture/login.bmp", p_lcd);
+        sleep(2);
 
-    // 登陆
-    int ret = manage_login();
-    if (ret == -1){
-        project_destroy();
-        return 0;
+        // 主界面
+        int ret_ = project_ui();
     }
-
-    // 主界面
-    project_ui();
-
     // 程序销毁
     project_destroy();
 

@@ -11,11 +11,14 @@ int ChoiceSelect(void){
     // 获取坐标
     int touch_mode = project_touch(&posx, &posy);
 
-    if (posx >= 128 && posx <= 128+237 && posy >= 244 && posy <=244+154){
+    if (posx >= 131 && posx <= 131+99 && posy >= 268 && posy <=268+128){
         return 1; // 图片
     }
-    else if (posx >= 436 && posx <= 436+237 && posy >= 244 && posy <=244+154){
+    else if (posx >= 610 && posx <= 610+99 && posy >= 268 && posy <=268+143){
         return 2; // 视频
+    }
+    else if (posx >= 0 && posx <= 10+131 && posy >= 0 && posy <= 90){
+        return 3; // 退出
     }
     else
         return 0;
@@ -36,6 +39,7 @@ int project_ui(void){
     do {
         // 提示选择要进行的项目
         choice = ChoiceSelect();
+        // printf("choice:%d\n", choice);
         switch (choice) {
             case 0:{
                 break;
@@ -45,14 +49,11 @@ int project_ui(void){
                 break;
             }
             case 2:{ // 视频
-                // int count = 0;
-                // while (count < 5) {
-                //     show_1152000bmp("./picture/2.bmp", p_lcd);
-                //     count++;
-                //     sleep(1);
-                // }
                 VideoPlay(800, 400);
                 break;
+            }
+            case 3:{
+                return 0;
             }
             default:{
                 printf("?");

@@ -2,6 +2,7 @@
 #include "main.h"
 #include "save_load.h"
 #include <stdio.h>
+#include <string.h>
 
 int project_init(void){
     // 打开LCD文件
@@ -32,9 +33,20 @@ int project_init(void){
         perror("getVideoFiles Error\n");
         return -1;
     }
+    // 获取所有图片文件
+    ret_ = getPhotoFiles("./picture");
+    if (ret_ == -1){
+        perror("getPhotoFiles Error\n");
+        return -1;
+    }
 
     // user_count = 1; // 管理员
     load_user_data();
+    printf("当前用户个数:%d\n", user_count);
+
+    memset(user_path, '\0', sizeof(user_path));
+    memset(user_picture_path, '\0', sizeof(user_path));
+    memset(user_video_path, '\0', sizeof(user_path));
 
     return 0;
 }
