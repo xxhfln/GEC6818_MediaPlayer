@@ -1,0 +1,1 @@
+arm-linux-gcc ./src/*.c -I ./include/ -o final_project

@@ -11,9 +11,16 @@ int main(int argc,char* argv[])
     project_init();
 
     // 开机界面
-    show_1152000bmp("./picture/qidong.bmp", p_lcd);
-    sleep(3);
+    // show_1152000bmp("./picture/qidong.bmp", p_lcd);
+    // sleep(3);
+    // int count = 0;
+    char *gif[4] = {"./picture/gif1.bmp", "./picture/gif2.bmp", "./picture/gif3.bmp", "./picture/gif4.bmp"};
+    for (int j = 0; j < 4;j++){
+        show_1152000bmp(gif[j], p_lcd);
+        sleep(1);
+    }
     
+
     while(1){
         // 滑动解锁界面
         show_1152000bmp("./picture/jiesuo.bmp", p_lcd);
